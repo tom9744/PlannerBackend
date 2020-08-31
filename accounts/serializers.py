@@ -49,7 +49,8 @@ class CustomUserSerializer(serializers.ModelSerializer):
         user.save()  # 변경 내용을 DB 저장
 
         # 인증 토큰과 관련된 변수
-        domain = 'localhost:8080'
+        # domain = 'localhost:8080'
+        domain = 'plannerapp-e2fe9.web.app'
         uidb64 = urlsafe_base64_encode(force_bytes(user.id))
         token = account_activation_token.make_token(user)
 
