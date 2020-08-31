@@ -9,9 +9,7 @@ __pycache__/
 *$py.class
 
 # Manually Added
-deprecated/
 .idea/
-private_settings.py
 
 # C extensions
 *.so
