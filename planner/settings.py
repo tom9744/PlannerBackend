@@ -69,8 +69,8 @@ CORS_ORIGIN_ALLOW_ALL = False
 CORS_ORIGIN_WHITELIST = [
     'http://127.0.0.1:8080',
     'http://localhost:8080',
-    'https://plannerapp-e2fe9.web.app/',
-    'https://plannerapp-e2fe9.firebaseapp.com/',
+    'https://plannerapp-e2fe9.web.app',
+    'https://plannerapp-e2fe9.firebaseapp.com',
 ]
 
 ROOT_URLCONF = 'planner.urls'
