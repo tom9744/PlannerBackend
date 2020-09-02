@@ -27,7 +27,7 @@ BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 SECRET_KEY = private_settings.SECRET_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = bool( os.environ.get('DJANGO_DEBUG', True) )
 
 ALLOWED_HOSTS = ['*']
 
@@ -140,14 +140,21 @@ USE_TZ = False
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
+# STATIC_URL = '/static/'
+# STATIC_ROOT = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
-STATIC_ROOT = 'static/'
 
 AUTH_USER_MODEL = 'accounts.CustomUser'
 
 # 이미지와 같은 미디어 파일을 이용하기 위한 설정
+
+# MEDIA_ROOT = "uploads"
+# MEDIA_URL = "/media/"
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles')
 MEDIA_URL = "/media/"
-MEDIA_ROOT = "uploads"
+
 
 # REST FRAME WORK AUTHENTICATION
 REST_FRAMEWORK = {
@@ -170,3 +177,5 @@ EMAIL_HOST = private_settings.EMAIL['EMAIL_HOST']
 EMAIL_HOST_USER = private_settings.EMAIL['EMAIL_HOST_USER']
 EMAIL_HOST_PASSWORD = private_settings.EMAIL['EMAIL_HOST_PASSWORD']
 SERVER_EMAIL = private_settings.EMAIL['SERVER_EMAIL']
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
