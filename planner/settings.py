@@ -45,6 +45,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
 
+    'storages',
+
     'corsheaders',
 
     'accounts',
@@ -136,26 +138,6 @@ USE_L10N = True
 
 USE_TZ = False
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/3.1/howto/static-files/
-
-# STATIC_URL = '/static/'
-# STATIC_ROOT = 'static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATIC_URL = '/static/'
-
-AUTH_USER_MODEL = 'accounts.CustomUser'
-
-# 이미지와 같은 미디어 파일을 이용하기 위한 설정
-
-# MEDIA_ROOT = "uploads"
-# MEDIA_URL = "/media/"
-
-MEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles')
-MEDIA_URL = "/media/"
-
-
 # REST FRAME WORK AUTHENTICATION
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
@@ -178,4 +160,32 @@ EMAIL_HOST_USER = private_settings.EMAIL['EMAIL_HOST_USER']
 EMAIL_HOST_PASSWORD = private_settings.EMAIL['EMAIL_HOST_PASSWORD']
 SERVER_EMAIL = private_settings.EMAIL['SERVER_EMAIL']
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+AUTH_USER_MODEL = 'accounts.CustomUser'
+
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/3.1/howto/static-files/
+
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+# AWS S3 관련 세팅
+AWS_ACCESS_KEY_ID = private_settings.AWS_ACCESS_KEY_ID
+AWS_SECRET_ACCESS_KEY = private_settings.AWS_SECRET_ACCESS_KEY
+AWS_STORAGE_BUCKET_NAME = 'date-planner-django'
+AWS_REGION = 'ap-northeast-2'
+
+AWS_CUSTOM_DOMAIN = '%s.s3.%s.amazonaws.com' % (AWS_STORAGE_BUCKET_NAME, AWS_REGION)
+AWS_S3_OBJECT_PARAMETERS = {
+    'CacheControl': 'max-age=86400',
+}
+
+AWS_DEFAULT_ACL = None
+AWS_QUERYSTRING_AUTH = False
+AWS_LOCATION = 'static'
+
+STATIC_URL = 'https://%s/%s/' % (AWS_CUSTOM_DOMAIN, AWS_LOCATION)
+STATICFILES_STORAGE = 'planner.storages.StaticStorage'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static')
+]
+
+DEFAULT_FILE_STORAGE = 'planner.storages.MediaStorage'
