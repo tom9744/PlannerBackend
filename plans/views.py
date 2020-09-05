@@ -61,7 +61,7 @@ class PlanViewSet(viewsets.ModelViewSet):
 class BucketListViewSet(viewsets.ModelViewSet):
     """ 데이터베이스의 하고싶은 일 모델을 관리한다. """
     serializer_class = BucketListSerializer
-    queryset = BucketList.objects.all()
+    queryset = BucketList.objects.all().order_by('-date_created')
     authentication_classes = [JWTAuthentication, SessionAuthentication]
     permission_classes = [IsAuthenticated, ]
 
