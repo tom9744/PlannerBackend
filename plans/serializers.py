@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 from .models import Tag, Plan, BucketList
-from accounts.models import Profile
+from accounts.serializers import ProfileAvatarSerializer
 
 
 class TagSerializer(serializers.ModelSerializer):
@@ -16,7 +16,7 @@ class TagSerializer(serializers.ModelSerializer):
 class BucketListSerializer(serializers.ModelSerializer):
     """ 하고 싶은 일을 위한 시리얼라이저 """
     user = serializers.StringRelatedField(read_only=True)
-    profile = serializers.StringRelatedField(read_only=True)
+    profile = ProfileAvatarSerializer(read_only=True)
 
     class Meta:
         model = BucketList

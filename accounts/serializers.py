@@ -134,4 +134,5 @@ class ProfileAvatarSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Profile
-        fields = ('avatar', )
+        fields = ('nickname', 'avatar',)
+        read_only_fields = ('nickname', )
