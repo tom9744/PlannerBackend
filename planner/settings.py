@@ -73,6 +73,7 @@ CORS_ORIGIN_WHITELIST = [
     'http://localhost:8080',
     'https://plannerapp-e2fe9.web.app',
     'https://plannerapp-e2fe9.firebaseapp.com',
+    'https://hrhr-planner.tk'
 ]
 
 ROOT_URLCONF = 'planner.urls'
