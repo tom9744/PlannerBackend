@@ -6,8 +6,8 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'hqm16_3@bmmi1bx@+a(+1lupqy(!y^
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'dateplanner',
-        'USER': 'junyoung',
+        'NAME': 'plannerapp',
+        'USER': 'Catfish',
         'PASSWORD': '',
         'HOST': 'localhost',
         'PORT': '',

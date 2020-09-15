@@ -10,6 +10,7 @@ __pycache__/
 
 # Manually Added
 .idea/
+private_settings.py
 
 # C extensions
 *.so

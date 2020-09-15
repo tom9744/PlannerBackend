@@ -39,7 +39,7 @@ class PlanViewSet(viewsets.ModelViewSet):
     """ 데이터베이스의 일정을 관리한다. """
     serializer_class = PlanSerializer
     queryset = Plan.objects.all()
-    authentication_classes = [JWTAuthentication, ]
+    authentication_classes = [JWTAuthentication, SessionAuthentication, ]
     permission_classes = [IsAuthenticated, ]
 
     # def get_queryset(self):
@@ -56,7 +56,8 @@ class PlanViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         """ 새로운 일정을 생성하고, 현재 사용중인 사용자를 연결한다. """
-        serializer.save(user=self.request.user)
+        # serializer.save(user=self.request.user)
+        serializer.save(user=self.request.user, profile=self.request.user.profile)
 
 
 class BucketListViewSet(viewsets.ModelViewSet):
@@ -73,6 +74,3 @@ class BucketListViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         """ 새로운 일정을 생성하고, 현재 사용중인 사용자를 연결한다. """
         serializer.save(user=self.request.user, profile=self.request.user.profile)
-
-    # def perform_update(self, serializer):
-    #     serializer.save(user=self.request.user, profile=self.request.user.profile)

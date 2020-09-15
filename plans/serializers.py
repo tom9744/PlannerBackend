@@ -27,16 +27,19 @@ class BucketListSerializer(serializers.ModelSerializer):
 class PlanSerializer(serializers.ModelSerializer):
     """ 일정 모델을 위한 시리얼라이저 """
 
+    user = serializers.StringRelatedField(read_only=True)
+    profile = ProfileAvatarSerializer(read_only=True)
     # 태그 모델의 'Primary Key'를 이용하여 일정 모델에서 태그 모델을 표현한다.
-    tags = serializers.PrimaryKeyRelatedField(
-        many=True,  # ManyToMany Relationship
-        queryset=Tag.objects.all(),  # 사용할 쿼리셋
-    )
+    # tags = serializers.PrimaryKeyRelatedField(
+    #     many=True,  # ManyToMany Relationship
+    #     queryset=Tag.objects.all(),  # 사용할 쿼리셋
+    # )
 
     class Meta:
         model = Plan
-        fields = ('id', 'title', 'description', 'location', 'date_starts', 'date_ends', 'tags', 'is_complete')
-        read_only_fields = ('id', )
+        fields = ('id', 'user', 'profile', 'title', 'description',
+                  'location', 'date_created', 'date_starts', 'date_ends', 'is_complete')
+        read_only_fields = ('id', 'user', 'profile', )
 
     def validate(self, attrs):
         difference = (attrs['date_ends'] - attrs['date_starts']).days
